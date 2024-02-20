@@ -121,8 +121,8 @@ endif (MINGW)
 
 if (NOT WIN32 AND NOT APPLE)
     # Binary name on unix like systems (Linux, Unix)
-    set_target_properties(OrcaSlicer PROPERTIES OUTPUT_NAME "orca-slicerRED")
-    set(SLIC3R_APP_CMD "orca-slicerRED")
+    set_target_properties(OrcaSlicer PROPERTIES OUTPUT_NAME "orca-slicer")
+    set(SLIC3R_APP_CMD "orca-slicer")
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/platform/unix/BuildLinuxImage.sh.in ${CMAKE_CURRENT_BINARY_DIR}/BuildLinuxImage.sh @ONLY)
 endif ()
 

@@ -1,27 +1,16 @@
-[![Build all](https://github.com/SoftFever/OrcaSlicer/actions/workflows/build_all.yml/badge.svg?branch=main)](https://github.com/SoftFever/OrcaSlicer/actions/workflows/build_all.yml)
-# Orca Slicer     
-Orca Slicer is an open source slicer for FDM printers.   
+[![Build all](https://github.com/KrisMorr/OrcaSlicerRED/actions/workflows/build_all.yml/badge.svg?branch=main)](https://github.com/KrisMorr/OrcaSlicerRED/actions/workflows/build_all.yml)
+# Orca SlicerRED    
 
-![discord-mark-blue](https://github.com/SoftFever/OrcaSlicer/assets/103989404/b97d5ffc-072d-4d0a-bbda-e67ef373876f) Join community: [OrcaSlicer Official Discord Server](https://discord.gg/P4VE9UY9gJ)   
-
-# Main features
-- Auto calibrations for all printers
-- Sandwich(inner-outer-inner) mode - an improved version of the `External perimeters first` mode
-- [Precise wall](https://github.com/SoftFever/OrcaSlicer/wiki/Precise-wall)
-- Polyholes conversion support [SuperSlicer Wiki: Polyholes](https://github.com/supermerill/SuperSlicer/wiki/Polyholes)
-- Klipper support
-- More granular controls
-- More features can be found in [change notes](https://github.com/SoftFever/OrcaSlicer/releases/)  
 
 
 # Download
 
 ### Stable Release
-📥 **[Download the Latest Stable Release](https://github.com/SoftFever/OrcaSlicer/releases/latest)**  
+**[Download the Latest Stable Release](https://github.com/KrisMorr/OrcaSlicerRED/releases/latest)**  
 Visit our GitHub Releases page for the latest stable version of Orca Slicer, recommended for most users.
 
 ### Nightly Builds
-🌙 **[Download the Latest Nightly Build](https://github.com/SoftFever/OrcaSlicer/releases/tag/nightly-builds)**  
+**[Download the Nightly Build](https://github.com/KrisMorr/OrcaSlicerRED/tags)**  
 Explore the latest developments in Orca Slicer with our nightly builds. Feedback on these versions is highly appreciated.
 
 
@@ -36,6 +25,9 @@ Explore the latest developments in Orca Slicer with our nightly builds. Feedback
       - [vcredist2019_x64](https://github.com/SoftFever/OrcaSlicer/releases/download/v1.0.10-sf2/vcredist2019_x64.exe)
           -  [Alternative Download Link Hosted by Microsoft](https://aka.ms/vs/17/release/vc_redist.x64.exe)
           -  This file may already be available on your computer if you've installed visual studio.  Check the following location: `%VCINSTALLDIR%Redist\MSVC\v142`
+# How to install hms_xx.json - Windows
+
+
 
 **Mac**:
 1. Download the DMG for your computer: `arm64` version for Apple Silicon and `x86_64` for Intel CPU.  
@@ -57,10 +49,8 @@ Explore the latest developments in Orca Slicer with our nightly builds. Feedback
         - Step 2: in `System Settings` -> `Privacy & Security`, click `Open Anyway`:  
             ![image](./SoftFever_doc/mac_security_setting.png)  
     </details>
-    
-**Linux(Ubuntu)**:
- 1. If you run into trouble to execute it, try this command in terminal:  
-    `chmod +x /path_to_appimage/OrcaSlicer_Linux.AppImage`
+ # How to install hms_xx.json - MAC   
+
     
 # How to compile
 - Windows 64-bit  

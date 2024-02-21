@@ -1,12 +1,12 @@
 [Desktop Entry]
-Name=OrcaSlicer
+Name=OrcaSlicerRED
 GenericName=3D Printing Software
 Icon=OrcaSlicer
-Exec=orca-slicer %U
+Exec=orca-slicerRED %U
 Terminal=false
 Type=Application
 MimeType=model/stl;model/3mf;application/vnd.ms-3mfdocument;application/prs.wavefront-obj;application/x-amf;
 Categories=Graphics;3DGraphics;Engineering;
 Keywords=3D;Printing;Slicer;slice;3D;printer;convert;gcode;stl;obj;amf;SLA
 StartupNotify=false
-StartupWMClass=orca-slicer
+StartupWMClass=orca-slicerRED

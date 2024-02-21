@@ -3940,13 +3940,14 @@ std::string GUI_App::handle_web_request(std::string cmd)
                     }
                 }
             }
-            //model3D_OSred
+            //model3D_OrcaSlicerRED
             else if (command_str.compare("homepage_open_model3D") == 0) {
                 if (root.get_child_optional("data") != boost::none) {
                     pt::ptree                    data_node = root.get_child("data");
                     boost::optional<std::string> path      = data_node.get_optional<std::string>("url");
                     if (path.has_value()) {
-                        wxLaunchDefaultBrowser(path.value());    
+
+                        wxLaunchDefaultBrowser(path.value());
                     }
                 }
             }

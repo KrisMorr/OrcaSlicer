@@ -3687,7 +3687,7 @@ void priv::store(const CutMesh &mesh, const FaceTypeMap &face_type_map, const st
         auto &color = face_colors[fi];
         switch (face_type_map[fi]) {
         case FaceType::inside: color = CGAL::Color{100, 250, 100}; break; // light green
-        case FaceType::inside_processed: color = CGAL::Color{170, 0, 0}; break; // dark red
+        case FaceType::inside_processed: color = CGAL::Color{242, 128, 128}; break; // dark red
         case FaceType::outside: color = CGAL::Color{100, 0, 100}; break; // purple
         case FaceType::not_constrained: color = CGAL::Color{127, 127, 127}; break; // gray
         default: color = CGAL::Color{0, 0, 255}; // blue

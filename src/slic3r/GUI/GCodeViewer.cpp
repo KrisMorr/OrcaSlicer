@@ -4618,8 +4618,8 @@ void GCodeViewer::render_legend(float &legend_height, int canvas_width, int canv
     else
         btn_name = ImGui::FoldButtonIcon + boost::nowide::widen(std::string(""));
     ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
-    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.92f, 0.28f, 0.28f, 1.00f));
-    ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.92f, 0.28f, 0.28f, 0.78f));
+    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.92f, 0.28f, 0.28f,, 1.00f));
+    ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.92f, 0.28f, 0.28f,, 0.78f));
     ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0.0f, 0.0f));
     //ImGui::PushItemWidth(
     float button_width = ImGui::CalcTextSize(into_u8(btn_name).c_str()).x;

@@ -185,7 +185,7 @@ void CameraPopup::handle_camera_source_change()
 void CameraPopup::set_custom_cam_button_state(bool state)
 {
     m_custom_camera_enabled = state;
-    auto stateColour = state ? wxColour(235, 73, 73) : wxColour(204, 200, 200);
+    auto stateColour = state ? wxColour(157, 161, 160) : wxColour(245, 100, 100);
     auto stateText = state ? "Disable" : "Enable";
     m_custom_camera_input_confirm->SetBackgroundColor(stateColour);
     m_custom_camera_input_confirm->SetBorderColor(stateColour);

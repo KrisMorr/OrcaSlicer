@@ -16,7 +16,7 @@ Explore the latest developments in Orca Slicer with our nightly builds. Feedback
 
 # How to install
 **Windows**: 
-1.  Download the installer for your preferred version from the [releases page](https://github.com/SoftFever/OrcaSlicer/releases).
+1.  Download the installer for your preferred version from the [releases page](https://github.com/KrisMorr/OrcaSlicerRED/releases).
     - *For convenience there is also a portable build available.*
     - *If you have troubles to run the build, you might need to install following runtimes:*
       - [MicrosoftEdgeWebView2RuntimeInstallerX64](https://github.com/SoftFever/OrcaSlicer/releases/download/v1.0.10-sf2/MicrosoftEdgeWebView2RuntimeInstallerX64.exe)
@@ -26,6 +26,14 @@ Explore the latest developments in Orca Slicer with our nightly builds. Feedback
           -  [Alternative Download Link Hosted by Microsoft](https://aka.ms/vs/17/release/vc_redist.x64.exe)
           -  This file may already be available on your computer if you've installed visual studio.  Check the following location: `%VCINSTALLDIR%Redist\MSVC\v142`
 # How to install hms_xx.json - Windows
+
+**Unzip the hms_xx_json.zip archive containing the hms_xx.json files into the "hms" directory within the configuration folder.**
+
+These are files responsible for translating errors for Bambu Lab printers.
+
+![folder konf win](https://github.com/KrisMorr/OrcaSlicerRED/assets/154343071/e4526d39-0c3c-4a7f-bc88-6805154d8eaf)
+
+![katalogi](https://github.com/KrisMorr/OrcaSlicerRED/assets/154343071/bd49083b-1545-4595-8be0-bd4f767d5f62)
 
 
 
@@ -51,7 +59,11 @@ Explore the latest developments in Orca Slicer with our nightly builds. Feedback
     </details>
  # How to install hms_xx.json - MAC   
 
-    
+**Unzip the hms_xx_json.zip archive containing the hms_xx.json files into the "hms" directory within the configuration folder.**
+
+These are files responsible for translating errors for Bambu Lab printers.
+
+
 # How to compile
 - Windows 64-bit  
   - Tools needed: Visual Studio 2019, Cmake, git, Strawberry Perl.

@@ -1,5 +1,6 @@
 [![Build all](https://github.com/KrisMorr/OrcaSlicerRED/actions/workflows/build_all.yml/badge.svg?branch=main)](https://github.com/KrisMorr/OrcaSlicerRED/actions/workflows/build_all.yml)
 # Orca SlicerRED    
+![red z logo 2png](https://github.com/KrisMorr/OrcaSlicerRED/assets/154343071/78428ce7-4fd9-46ce-b7d6-15cfe710afaa)
 
 
 

@@ -44,13 +44,13 @@
 
 .RegionSelected
 {
-	background-color:#eb4949;
+	background-color:#009688;
 	color: #fff;
 }
 
 .RegionSelected:hover
 {
-	background-color:#eb4949;
+	background-color:#009688;
 	color: #fff;	
 }
 

@@ -334,7 +334,7 @@ replaces["\"#0x00AE42\""] = "\"#EB4949\"";
         replaces["\"#6B6B6B\""] = "\"#818182\"";
         replaces["\"#909090\""] = "\"#FFFFFF\"";
         replaces["\"#00FF00\""] = "\"#FF0000\"";
-replaces["\"#EB4949\""] = "\"#c93e3e\"";
+replaces["\"#EB4949\""] = "\"#eb4941\"";
     }
     //if (!new_color.empty())
     //    replaces["\"#ED6B21\""] = "\"" + new_color + "\"";

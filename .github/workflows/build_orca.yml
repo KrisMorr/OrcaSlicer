@@ -87,14 +87,14 @@ jobs:
         run: |
           ./build_release_macos.sh -s -n -a ${{inputs.arch}} -t 10.15
 
-      - name: Pack OrcaSlicer
+      - name: Pack OrcaSlicerRED
         if: inputs.os == 'macos-12'
         working-directory: ${{ github.workspace }}
         run: |
           export ver=$(grep '^#define SoftFever_VERSION' ./build_${{inputs.arch}}/src/libslic3r/libslic3r_version.h | cut -d ' ' -f3)
           ver="_V${ver//\"}"
           cd ${{ github.workspace }}/build_${{inputs.arch}}/OrcaSlicer
-          zip -FSrq OrcaSlicerRED${ver}_Mac_${{inputs.arch}}_${{ env.ver }}_unsigned.zip ./OrcaSlicer.app
+          zip -FSrq OrcaSlicerRED${ver}_Mac_${{inputs.arch}}_${{ env.ver }}_unsigned.zip ./OrcaSlicerRED.app
           
       #- name: Create DMG
       #  uses: QQxiaoming/create-dmg-action@v0.0.2
@@ -108,7 +108,7 @@ jobs:
       #    name: OrcaSlicer.dmg
       #    path: OrcaSlicer.dmg
           
-      - name: Upload OrcaSlicer*.zip
+      - name: Upload OrcaSlicerRED*.zip
         if: inputs.os == 'macos-12'
         uses: actions/upload-artifact@v3
         with:
@@ -231,14 +231,14 @@ jobs:
         shell: bash
         run: |
              ./BuildLinux.sh -isr
-              chmod +x ./build/OrcaSlicer_ubu64.AppImage
+              chmod +x ./build/OrcaSlicerRED_ubu64.AppImage
   
       - name: Upload artifacts Ubuntu
         if: inputs.os == 'ubuntu-20.04'
         uses: actions/upload-artifact@v3
         with:
-         name: OrcaSlicer_Linux_${{ env.ver }}
-         path: './build/OrcaSlicer_ubu64.AppImage'
+         name: OrcaSlicerRED_Linux_${{ env.ver }}
+         path: './build/OrcaSlicerRED_ubu64.AppImage'
 # Ubuntu
       - name: Install dependencies
         if: inputs.os == 'ubuntu-20.04'
@@ -265,12 +265,12 @@ jobs:
         shell: bash
         run: |
             ./BuildLinux.sh -isr
-             mv -n ./build/OrcaSlicer_Linux_V${{ env.ver_pure }}.AppImage ./build/OrcaSlicer_Linux_${{ env.ver }}.AppImage
-            chmod +x ./build/OrcaSlicer_Linux_${{ env.ver }}.AppImage
+             mv -n ./build/OrcaSlicerRED_Linux_V${{ env.ver_pure }}.AppImage ./build/OrcaSlicerRED_Linux_${{ env.ver }}.AppImage
+            chmod +x ./build/OrcaSlicerRED_Linux_${{ env.ver }}.AppImage
 
       - name: Upload artifacts Ubuntu
         if: inputs.os == 'ubuntu-20.04'
         uses: actions/upload-artifact@v3
         with:
-         name: OrcaSlicer_Linux_${{ env.ver }}
-         path: './build/OrcaSlicer_Linux_${{ env.ver }}.AppImage'
+         name: OrcaSlicerRED_Linux_${{ env.ver }}
+         path: './build/OrcaSlicerRED_Linux_${{ env.ver }}.AppImage'

@@ -94,7 +94,7 @@ jobs:
           export ver=$(grep '^#define SoftFever_VERSION' ./build_${{inputs.arch}}/src/libslic3r/libslic3r_version.h | cut -d ' ' -f3)
           ver="_V${ver//\"}"
           cd ${{ github.workspace }}/build_${{inputs.arch}}/OrcaSlicer
-          zip -FSrq OrcaSlicerRED${ver}_Mac_${{inputs.arch}}_${{ env.ver }}_unsigned.zip ./OrcaSlicerRED.app
+          zip -FSrq OrcaSlicerRED${ver}_Mac_${{inputs.arch}}_${{ env.ver }}_unsigned.zip ./OrcaSlicer.app
           
       #- name: Create DMG
       #  uses: QQxiaoming/create-dmg-action@v0.0.2

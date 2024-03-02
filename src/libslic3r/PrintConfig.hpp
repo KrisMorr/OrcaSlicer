@@ -169,13 +169,6 @@ enum SeamPosition {
     spNearest, spAligned, spRear, spRandom
 };
 
-// Orca
-enum class SeamScarfType {
-    None,
-    External,
-    All,
-};
-
 //Orca
 enum InternalBridgeFilter {
     ibfDisabled, ibfLimited, ibfNofilter
@@ -389,7 +382,6 @@ CONFIG_OPTION_ENUM_DECLARE_STATIC_MAPS(SupportMaterialInterfacePattern)
 // BBS
 CONFIG_OPTION_ENUM_DECLARE_STATIC_MAPS(SupportType)
 CONFIG_OPTION_ENUM_DECLARE_STATIC_MAPS(SeamPosition)
-CONFIG_OPTION_ENUM_DECLARE_STATIC_MAPS(SeamScarfType)
 CONFIG_OPTION_ENUM_DECLARE_STATIC_MAPS(SLADisplayOrientation)
 CONFIG_OPTION_ENUM_DECLARE_STATIC_MAPS(SLAPillarConnectionMode)
 CONFIG_OPTION_ENUM_DECLARE_STATIC_MAPS(BrimType)
@@ -846,6 +838,7 @@ PRINT_CONFIG_CLASS_DEFINE(
     ((ConfigOptionFloat,              top_surface_jerk))
     ((ConfigOptionFloat,              initial_layer_jerk))
     ((ConfigOptionFloat,              travel_jerk))
+
 )
 
 // This object is mapped to Perl as Slic3r::Config::PrintRegion.
@@ -950,14 +943,6 @@ PRINT_CONFIG_CLASS_DEFINE(
     ((ConfigOptionBool,                is_infill_first))
     ((ConfigOptionBool,                small_area_infill_flow_compensation))
     ((ConfigOptionEnum<WallDirection>,  wall_direction))
-
-    // Orca: seam slopes
-    ((ConfigOptionEnum<SeamScarfType>,  seam_slope_type))
-    ((ConfigOptionFloatOrPercent,       seam_slope_start_height))
-    ((ConfigOptionBool,                 seam_slope_entire_loop))
-    ((ConfigOptionFloat,                seam_slope_min_length))
-    ((ConfigOptionInt,                  seam_slope_steps))
-    ((ConfigOptionBool,                 seam_slope_inner_walls))
 )
 
 PRINT_CONFIG_CLASS_DEFINE(
@@ -1107,8 +1092,6 @@ PRINT_CONFIG_CLASS_DEFINE(
 
     // Small Area Infill Flow Compensation
     ((ConfigOptionStrings,              small_area_infill_flow_compensation_model))
-
-    ((ConfigOptionBool,                has_scarf_joint_seam))
 )
 
 // This object is mapped to Perl as Slic3r::Config::Print.

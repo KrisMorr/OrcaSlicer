@@ -40,27 +40,20 @@ These are files responsible for translating errors for Bambu Lab printers.
 
 **Mac**:
 1. Download the DMG for your computer: `arm64` version for Apple Silicon and `x86_64` for Intel CPU.  
-2. Drag OrcaSlicer.app to Application folder. 
+2. Drag OrcaSlicerRED.app to Application folder. 
 3. *If you want to run a build from a PR, you also need following instructions below*  
-    <details quarantine>
-    - Option 1 (You only need to do this once. After that the app can be opened normally.):
-      - Step 1: Hold _cmd_ and right click the app, from the context menu choose **Open**.
-      - Step 2: A warning window will pop up, click _Open_  
       
-    - Option 2:  
       Execute this command in terminal: `xattr -dr com.apple.quarantine /Applications/OrcaSlicer.app`
       ```console
           softfever@mac:~$ xattr -dr com.apple.quarantine /Applications/OrcaSlicer.app
       ```
-    - Option 3:  
-        - Step 1: open the app, a warning window will pop up  
-            ![image](./SoftFever_doc/mac_cant_open.png)  
-        - Step 2: in `System Settings` -> `Privacy & Security`, click `Open Anyway`:  
-            ![image](./SoftFever_doc/mac_security_setting.png)  
-    </details>
+![ScreenshotsTerminal](https://github.com/KrisMorr/OrcaSlicerRED/assets/154343071/8bc48296-6f9f-43b7-8f47-176034499687)
+
  # How to install hms_xx.json - MAC   
 
 **Unzip the hms_xx_json.zip archive containing the hms_xx.json files into the "hms" directory within the configuration folder.**
+![Screanshots_hms_1](https://github.com/KrisMorr/OrcaSlicerRED/assets/154343071/6b5fecb0-d846-4c19-beca-8829761bf11e)
+![Screenshots_hms_2](https://github.com/KrisMorr/OrcaSlicerRED/assets/154343071/d3b4c8bb-6933-4d03-b847-709201087578)
 
 These are files responsible for translating errors for Bambu Lab printers.
 

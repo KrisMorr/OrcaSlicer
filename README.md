@@ -96,36 +96,11 @@ resolution: 0.1
 ```
 
 # Supports
-**Orca Slicer** is an open-source project, and I'm deeply grateful to all my sponsors and backers.   
+**Orca SlicerRED** is an open-source project, and I'm deeply grateful to all my sponsors and backers.   
 Their generous support enables me to purchase filaments and other essential 3D printing materials for the project.   
 Thank you! :)
 
-### Sponsors:  
-<table>
-<tr>
-<td>
-<a href="https://peopoly.net/">
-    <img src="SoftFever_doc\sponsor_logos\peopoly-standard-logo.png" alt="Peopoly" width="64" height="">
-</a>
-</td> 
-</tr>
-<tr>
-<td> </td>
-</tr>
-<tr>
-<td>
-<a href="https://qidi3d.com/">
-    <img src="SoftFever_doc\sponsor_logos\QIDI.png" alt="QIDI" width="64" height="">
-</a>
-</td>
-</tr>
-</table>
 
-### Backers:  
-Ko-fi supporters: [Backers list](https://github.com/SoftFever/OrcaSlicer/wiki/OrcaSlicer-backers-%E2%80%90-28-Oct-2023)
-
-Support me  
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/G2G5IP3CP)
 
 ## Some background
 OrcaSlicer is originaly forked from Bambu Studio, it was previously known as BambuStudio-SoftFever.
@@ -136,7 +111,7 @@ Orca Slicer's logo is designed by community member Justin Levine(@freejstnalxndr
 
 
 # License
-Orca Slicer is licensed under the GNU Affero General Public License, version 3. Orca Slicer is based on Bambu Studio by BambuLab.
+Orca SlicerRED is licensed under the GNU Affero General Public License, version 3. Orca Slicer is based on Bambu Studio by BambuLab.
 
 Bambu Studio is licensed under the GNU Affero General Public License, version 3. Bambu Studio is based on PrusaSlicer by PrusaResearch.
 

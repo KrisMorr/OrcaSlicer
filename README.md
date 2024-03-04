@@ -6,10 +6,7 @@
 
 # Download
 
-### Stable Release
 
-
-### Nightly Builds
 **[Download the Latest Stable Release](https://github.com/KrisMorr/OrcaSlicerRED/releases/tag/Relases-v1.9.1_red))**  
 Visit our GitHub Releases page for the latest stable version of Orca SlicerRED, recommended for most users.
 

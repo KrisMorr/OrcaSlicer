@@ -46,7 +46,7 @@ These are files responsible for translating errors for Bambu Lab printers.
       
       Execute this command in terminal: `xattr -dr com.apple.quarantine /Applications/OrcaSlicerRED.app`
       ```console
-          softfever@mac:~$ xattr -dr com.apple.quarantine /Applications/OrcaSlicerRED.app
+          xattr -dr com.apple.quarantine /Applications/OrcaSlicerRED.app
       ```
 ![ScreenshotsTerminal](https://github.com/KrisMorr/OrcaSlicerRED/assets/154343071/8bc48296-6f9f-43b7-8f47-176034499687)
 

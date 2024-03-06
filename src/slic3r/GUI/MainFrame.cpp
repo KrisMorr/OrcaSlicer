@@ -934,7 +934,7 @@ void MainFrame::show_calibration_button(bool show)
     if (shown2 == show)
         ;
     else if (show)
-        m_tabpanel->InsertPage(tpCalibration, m_calibration, _L("Calibration"), std::string("tab_monitor_active"), std::string("tab_monitor_active"), false);
+        m_tabpanel->InsertPage(tpCalibration, m_calibration, _L("Calibration"), std::string("tab_calib_sf"), std::string("tab_calib_sf"), false);
     else
         m_tabpanel->RemovePage(tpCalibration);
 }
@@ -1102,7 +1102,7 @@ void MainFrame::init_tabpanel() {
 
     m_calibration = new CalibrationPanel(m_tabpanel, wxID_ANY, wxDefaultPosition, wxDefaultSize);
     m_calibration->SetBackgroundColour(*wxWHITE);
-    m_tabpanel->AddPage(m_calibration, _L("Calibration"), std::string("tab_monitor_active"), std::string("tab_monitor_active"), false);
+    m_tabpanel->AddPage(m_calibration, _L("Calibration"), std::string("tab_calib_sf"), std::string("tab_calib_sf"), false);
 
     if (m_plater) {
         // load initial config

@@ -284,52 +284,38 @@ public:
 
         int top_margin = FromDIP(75 * m_scale);
         int width = bmp.GetWidth();
+        int height = bmp.GetHeight();
 
-        // draw title and version
-        int text_padding = FromDIP(3 * m_scale);
-        memDc.SetFont(m_constant_text.title_font);
-        int title_height = memDc.GetTextExtent(m_constant_text.title).GetHeight();
-        int title_width = memDc.GetTextExtent(m_constant_text.title).GetWidth();
-        memDc.SetFont(m_constant_text.version_font);
-        int version_height = memDc.GetTextExtent(m_constant_text.version).GetHeight();
-        int version_width = memDc.GetTextExtent(m_constant_text.version).GetWidth();
-        int split_width = (width + title_width - version_width) / 2;
-        wxRect title_rect(wxPoint(0, top_margin), wxPoint(split_width - text_padding, top_margin + title_height));
-        memDc.SetTextForeground(StateColor::darkModeColorFor(wxColour(38, 46, 48)));
-        memDc.SetFont(m_constant_text.title_font);
-        memDc.DrawLabel(m_constant_text.title, title_rect, wxALIGN_RIGHT | wxALIGN_BOTTOM);
-        //BBS align bottom of title and version text
-        wxRect version_rect(wxPoint(split_width + text_padding, top_margin), wxPoint(width, top_margin + title_height - text_padding));
-        memDc.SetFont(m_constant_text.version_font);
-        memDc.SetTextForeground(StateColor::darkModeColorFor(wxColor(134, 134, 134)));
-        memDc.DrawLabel(m_constant_text.version, version_rect, wxALIGN_LEFT | wxALIGN_BOTTOM);
-
-        auto bs_version = wxString::Format("Based on BambuStudio and PrusaSlicer").ToStdString();
-        memDc.SetFont(Label::Body_12);
-        wxSize text_rect = memDc.GetTextExtent(bs_version);
-        int start_x = (title_rect.GetLeft() + version_rect.GetRight()) / 2 - text_rect.GetWidth()/2;
-        int start_y = version_rect.GetBottom() + 10;
-        wxRect internal_sign_rect(wxPoint(start_x, start_y), wxSize(text_rect));
-        memDc.DrawLabel(bs_version, internal_sign_rect, wxALIGN_RIGHT);
-
-        // load bitmap for logo
+        //draw background
         BitmapCache bmp_cache;
-        int logo_margin = FromDIP(72 * m_scale);
-        int logo_size = FromDIP(122 * m_scale);
-        int logo_width = FromDIP(94 * m_scale);
-        wxBitmap logo_bmp = *bmp_cache.load_svg("splash_logo", logo_size, logo_size);
-        int logo_y = top_margin + title_rect.GetHeight() + logo_margin;
-        memDc.DrawBitmap(logo_bmp, (width - logo_width) / 2, logo_y, true);
+        int background_width = FromDIP(562 * m_scale);
+        int background_height = FromDIP(238 * m_scale);
+        wxBitmap background_bmp = *bmp_cache.load_svg("splash_logocard", background_width, background_height);
+
+        //set XY Position to draw background
+        memDc.DrawBitmap(background_bmp, (width - background_width) / 2, (width - background_width) / 2, true);
+
+        //draw based text
+        memDc.SetTextForeground(StateColor::darkModeColorFor(wxColor(38, 46, 48)));
+        memDc.SetFont(m_constant_text.credits_font);
+        int based_height = memDc.GetTextExtent(m_constant_text.credits).GetHeight();
+        int based_width = memDc.GetTextExtent(m_constant_text.credits).GetHeight();
+
+        int based_x = ((width - based_width) / 2) - (based_width / 2);
+        int based_y = height - (based_height + 10);
+
+        wxRect based_rect(wxPoint(0, based_y), wxPoint(width, based_y + based_height));
+        memDc.DrawLabel(m_constant_text.credits, based_rect, wxALIGN_CENTER);
 
         // calculate position for the dynamic text
-        int text_margin = FromDIP(80 * m_scale);
-        m_action_line_y_position = logo_y + logo_size + text_margin;
+        int dynamic_y = (((width - background_width) / 2) * 2) + background_height;
+        m_action_line_y_position = dynamic_y;
     }
 
     static wxBitmap MakeBitmap()
     {
-        int width = FromDIP(480, nullptr);
-        int height = FromDIP(480, nullptr);
+        int width = FromDIP(580, nullptr);
+        int height = FromDIP(310, nullptr);
 
         wxImage image(width, height);
         wxBitmap new_bmp(image);

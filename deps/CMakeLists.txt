@@ -18,7 +18,7 @@
 #
 # WARNING: On UNIX platforms wxWidgets hardcode the destdir path into its `wx-conffig` utility,
 # therefore, unfortunatelly, the installation cannot be copied/moved elsewhere without re-installing wxWidgets.
-#
+# x
 
 cmake_minimum_required(VERSION 3.2)
 if (APPLE)

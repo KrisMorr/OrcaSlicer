@@ -8,7 +8,7 @@
 FULL_MODE=false
 for arg in "$@"
 do
-    if [ "$arg" == "--full" ]; then
+    if [ "$arg" = "--full" ]; then
         FULL_MODE=true
     fi
 done
@@ -19,7 +19,7 @@ if $FULL_MODE; then
 fi
 
 
-echo $PWD
+echo "$0: working dir = $PWD"
 pot_file="./localization/i18n/OrcaSlicer.pot"
 for dir in ./localization/i18n/*/
 do

@@ -243,12 +243,12 @@ jobs:
       - name: Install dependencies
         if: inputs.os == 'ubuntu-20.04'
         run: |
-         sudo apt-get update
-         sudo apt-get install -y autoconf build-essential cmake curl eglexternalplatform-dev \
-         extra-cmake-modules file git libcairo2-dev libcurl4-openssl-dev libdbus-1-dev libglew-dev libglu1-mesa-dev \
-         libglu1-mesa-dev libgstreamer1.0-dev libgstreamerd-3-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-good1.0-dev \
-         libgtk-3-dev libgtk-3-dev libmspack-dev libosmesa6-dev libsecret-1-dev libsoup2.4-dev libssl-dev libudev-dev libwayland-dev \
-         libwebkit2gtk-4.0-dev libxkbcommon-dev locales locales-all m4 pkgconf sudo wayland-protocols wget
+          sudo apt-get update
+          sudo apt-get install -y autoconf build-essential cmake curl eglexternalplatform-dev \
+          extra-cmake-modules file git libcairo2-dev libcurl4-openssl-dev libdbus-1-dev libglew-dev libglu1-mesa-dev \
+          libglu1-mesa-dev libgstreamer1.0-dev libgstreamerd-3-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-good1.0-dev \
+          libgtk-3-dev libgtk-3-dev libmspack-dev libosmesa6-dev libsecret-1-dev libsoup2.4-dev libssl-dev libudev-dev libwayland-dev \
+          libwebkit2gtk-4.0-dev libxkbcommon-dev locales locales-all m4 pkgconf sudo wayland-protocols wget
 
       - name: Install dependencies from BuildLinux.sh
         if: inputs.os == 'ubuntu-20.04'
@@ -264,13 +264,13 @@ jobs:
         if: inputs.os == 'ubuntu-20.04'
         shell: bash
         run: |
-            ./BuildLinux.sh -isr
-             mv -n ./build/OrcaSlicer_Linux_V${{ env.ver_pure }}.AppImage ./build/OrcaSlicer_Linux_${{ env.ver }}.AppImage
-            chmod +x ./build/OrcaSlicer_Linux_${{ env.ver }}.AppImage
+          ./BuildLinux.sh -isr
+          mv -n ./build/OrcaSlicer_Linux_V${{ env.ver_pure }}.AppImage ./build/OrcaSlicer_Linux_${{ env.ver }}.AppImage
+          chmod +x ./build/OrcaSlicer_Linux_${{ env.ver }}.AppImage
 
       - name: Upload artifacts Ubuntu
         if: inputs.os == 'ubuntu-20.04'
         uses: actions/upload-artifact@v3
         with:
-         name: OrcaSlicer_Linux_${{ env.ver }}
-         path: './build/OrcaSlicer_Linux_${{ env.ver }}.AppImage'
+          name: OrcaSlicer_Linux_${{ env.ver }}
+          path: './build/OrcaSlicer_Linux_${{ env.ver }}.AppImage'

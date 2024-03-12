@@ -60,10 +60,11 @@ These are files responsible for translating errors for Bambu Lab printers.
 
 # How to compile
 - Windows 64-bit  
-  - Tools needed: Visual Studio 2019, Cmake, git, Strawberry Perl.
+  - Tools needed: Visual Studio 2019, Cmake, git, git-lfs, Strawberry Perl.
       - You will require cmake version 3.14 or later, which is available [on their website](https://cmake.org/download/).
       - Strawberry Perl is [available on their github repository](https://github.com/StrawberryPerl/Perl-Dist-Strawberry/releases/).
   - Run `build_release.bat` in `x64 Native Tools Command Prompt for VS 2019`
+  - Note: Don't forget to run `git lfs pull` after cloning the repository to download tools on Windows
 
 - Mac 64-bit  
   - Tools needed: Xcode, Cmake, git, gettext, libtool, automake, autoconf, texinfo

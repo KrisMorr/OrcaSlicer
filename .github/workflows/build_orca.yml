@@ -25,10 +25,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          lfs: 'true'
 
       - name: load cached deps
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ inputs.cache-path }}
           key: ${{ inputs.cache-key }}
@@ -110,15 +112,15 @@ jobs:
           
       - name: Upload OrcaSlicer*.zip
         if: inputs.os == 'macos-12'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: OrcaSlicerRED_macOS_${{inputs.arch}}_${{ env.ver }}_UNSIGNED
-          path: ${{ github.workspace }}/build_${{inputs.arch}}/OrcaSlicer/OrcaSlicer*.zip
+          name: OrcaSlicer_Mac_${{inputs.arch}}_${{ env.ver }}
+          path: ${{ github.workspace }}/OrcaSlicer_Mac_${{inputs.arch}}_${{ env.ver }}.dmg
 
 # Windows
       - name: setup MSVC
         if: inputs.os == 'windows-latest'
-        uses: microsoft/setup-msbuild@v1.1
+        uses: microsoft/setup-msbuild@v2
 
       - name: Install nsis
         if: inputs.os == 'windows-latest'
@@ -157,24 +159,25 @@ jobs:
           
       - name: Upload artifacts Win zip
         if: inputs.os == 'windows-latest'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: OrcaSlicerRED_Windows_${{ env.ver }}_portable
           path: ${{ github.workspace }}/build/OrcaSlicerRED_Windows_${{ env.ver }}_portable.zip
 
-      - name: Upload artifacts HMS zip
-        if: inputs.os == 'windows-latest_hms'
-        uses: actions/upload-artifact@v3
+      - name: Upload artifacts Win installer
+        if: inputs.os == 'windows-latest'
+        uses: actions/upload-artifact@v4
         with:
          name: hms_xx_json
          path: ${{ github.workspace }}/hms/hms_xx_json.zip   
 
       - name: Upload artifacts Win installer
         if: inputs.os == 'windows-latest'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: OrcaSlicerRED_Windows_${{ env.ver }}
           path: ${{ github.workspace }}/build/OrcaSlicer*.exe
+
 
      # - name: Upload artifacts Win PDB
      #   if: inputs.os == 'windows-latest'
@@ -235,7 +238,7 @@ jobs:
         
       - name: Upload artifacts Ubuntu
         if: inputs.os == 'ubuntu-20.04'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: OrcaSlicerRED_Linux_${{ env.ver }}
           path: './build/OrcaSlicerRED_Linux_${{ env.ver }}.AppImage'

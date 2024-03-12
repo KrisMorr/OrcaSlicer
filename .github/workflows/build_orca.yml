@@ -114,8 +114,8 @@ jobs:
         if: inputs.os == 'macos-12'
         uses: actions/upload-artifact@v4
         with:
-          name: OrcaSlicer_Mac_${{inputs.arch}}_${{ env.ver }}
-          path: ${{ github.workspace }}/OrcaSlicer_Mac_${{inputs.arch}}_${{ env.ver }}.dmg
+          name: OrcaSlicerRED_macOS_${{inputs.arch}}_${{ env.ver }}_UNSIGNED
+          path: ${{ github.workspace }}/build_${{inputs.arch}}/OrcaSlicer/OrcaSlicer*.zip
 
 # Windows
       - name: setup MSVC

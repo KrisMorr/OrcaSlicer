@@ -4469,9 +4469,10 @@ void EditDevNameDialog::on_edit_name(wxCommandEvent &e)
      Fit();
  }
 
- void ThumbnailPanel::set_thumbnail(wxImage img)
+ void ThumbnailPanel::set_thumbnail(wxImage &img)
  {
-     m_bitmap = img;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+     m_brightness_value = get_brightness_value(img);
+     m_bitmap = img;
      //Paint the background bitmap to the thumbnail bitmap with wxMemoryDC
      wxMemoryDC dc;
      bitmap_with_background.Create(wxSize(m_bitmap.GetWidth(), m_bitmap.GetHeight()));
@@ -4479,7 +4480,7 @@ void EditDevNameDialog::on_edit_name(wxCommandEvent &e)
      dc.DrawBitmap(m_background_bitmap.bmp(), 0, 0);
      dc.DrawBitmap(m_bitmap, 0, 0);
      dc.SelectObject(wxNullBitmap);
-
+     Refresh();
  }
 
  void ThumbnailPanel::OnPaint(wxPaintEvent& event) {

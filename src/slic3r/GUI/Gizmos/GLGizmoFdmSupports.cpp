@@ -248,6 +248,8 @@ void GLGizmoFdmSupports::on_render_input_window(float x, float y, float bottom_l
     const float on_overhangs_only_width  = m_imgui->calc_text_size(m_desc["on_overhangs_only"]).x + m_imgui->scaled(1.5f);
     const float remove_btn_width        = m_imgui->calc_text_size(m_desc.at("remove_all")).x + m_imgui->scaled(1.5f);
     const float filter_btn_width        = m_imgui->calc_text_size(m_desc.at("perform")).x + m_imgui->scaled(1.5f);
+    const float gap_area_txt_width = m_imgui->calc_text_size(m_desc.at("gap_area")).x + m_imgui->scaled(1.5f);
+    const float smart_fill_angle_txt_width = m_imgui->calc_text_size(m_desc.at("smart_fill_angle")).x + m_imgui->scaled(1.5f);
     const float buttons_width           = remove_btn_width + filter_btn_width + m_imgui->scaled(1.5f);
     const float empty_button_width      = m_imgui->calc_button_size("").x;
 
@@ -263,7 +265,7 @@ void GLGizmoFdmSupports::on_render_input_window(float x, float y, float bottom_l
     total_text_max += caption_max + m_imgui->scaled(1.f);
     caption_max += m_imgui->scaled(1.f);
 
-    const float sliders_left_width = std::max(reset_button_slider_left, std::max(std::max(cursor_slider_left, clipping_slider_left), std::max(highlight_slider_left, gap_fill_slider_left)));
+    const float sliders_left_width = std::max(gap_area_txt_width, std::max(smart_fill_angle_txt_width, std::max(reset_button_slider_left, std::max(std::max(cursor_slider_left, clipping_slider_left), std::max(highlight_slider_left, gap_fill_slider_left)))));
     const float slider_icon_width  = m_imgui->get_slider_icon_size().x;
     const float max_tooltip_width = ImGui::GetFontSize() * 20.0f;
 
@@ -331,7 +333,7 @@ void GLGizmoFdmSupports::on_render_input_window(float x, float y, float bottom_l
         bool btn_clicked = ImGui::BBLButton(into_u8(btn_name).c_str(), tab_size);
         
         ImGui::PopStyleVar(3);
-        ImGui::PopStyleColor(3);
+        ImGui::PopStyleColor(4);
 
         if (btn_clicked && m_current_tool != tool_ids[i]) {
             m_current_tool = tool_ids[i];
@@ -421,7 +423,7 @@ void GLGizmoFdmSupports::on_render_input_window(float x, float y, float bottom_l
         m_cursor_type = TriangleSelector::CursorType::POINTER;
 
         ImGui::AlignTextToFramePadding();
-        m_imgui->text(m_desc["gap_area"] + ":");
+        m_imgui->text(m_desc["gap_area"]);
         ImGui::SameLine(sliders_left_width);
         //ImGui::PushItemWidth(sliders_width);
         std::string format_str = std::string("%.2f") + I18N::translate_utf8("", "Triangle patch area threshold,""triangle patch will be merged to neighbor if its area is less than threshold");
@@ -481,11 +483,13 @@ void GLGizmoFdmSupports::on_render_input_window(float x, float y, float bottom_l
             m_imgui->text(m_desc.at("clipping_of_view"));
         }
         else {
+            ImGuiWrapper::push_default_button_style(); // ORCA match button style
             if (m_imgui->button(m_desc.at("reset_direction"))) {
                 wxGetApp().CallAfter([this]() {
                         m_c->object_clipper()->set_position_by_ratio(-1., false);
                     });
             }
+            ImGuiWrapper::pop_default_button_style();
         }
 
         auto clp_dist = float(m_c->object_clipper()->get_position());
@@ -517,6 +521,7 @@ void GLGizmoFdmSupports::on_render_input_window(float x, float y, float bottom_l
 
     // Perform button is for gap fill
     if (m_current_tool == ImGui::GapFillIcon) {
+        ImGuiWrapper::push_confirm_button_style(); // ORCA match button style
         if (m_imgui->button(m_desc.at("perform"))) {
             Plater::TakeSnapshot snapshot(wxGetApp().plater(), "Reset selection", UndoRedo::SnapshotType::GizmoAction);
 
@@ -528,10 +533,12 @@ void GLGizmoFdmSupports::on_render_input_window(float x, float y, float bottom_l
             update_model_object();
             m_parent.set_as_dirty();
         }
+        ImGuiWrapper::pop_confirm_button_style();
     }
 
     ImGui::SameLine();
 
+    ImGuiWrapper::push_default_button_style(); // ORCA match button style
     if (m_imgui->button(m_desc.at("remove_all"))) {
         Plater::TakeSnapshot snapshot(wxGetApp().plater(), "Reset selection", UndoRedo::SnapshotType::GizmoAction);
         ModelObject *        mo  = m_c->selection_info()->model_object();
@@ -546,6 +553,8 @@ void GLGizmoFdmSupports::on_render_input_window(float x, float y, float bottom_l
         update_model_object();
         m_parent.set_as_dirty();
     }
+    ImGuiWrapper::pop_default_button_style();
+
     //ImGui::PopStyleVar(2);
 
     GizmoImguiEnd();

@@ -941,7 +941,7 @@ void MainFrame::show_calibration_button(bool show)
     if (shown2 == show)
         ;
     else if (show)
-        m_tabpanel->InsertPage(tpCalibration, m_calibration, _L("Calibration"), std::string("tab_monitor_active"), std::string("tab_monitor_active"), false);
+        m_tabpanel->InsertPage(tpCalibration, m_calibration, _L("Calibration"), std::string("tab_calibration"), std::string("tab_calibration"), false); // ORCA: icon update
     else
         m_tabpanel->RemovePage(tpCalibration);
 }
@@ -1085,7 +1085,7 @@ void MainFrame::init_tabpanel() {
 
     m_calibration = new CalibrationPanel(m_tabpanel, wxID_ANY, wxDefaultPosition, wxDefaultSize);
     m_calibration->SetBackgroundColour(*wxWHITE);
-    m_tabpanel->AddPage(m_calibration, _L("Calibration"), std::string("tab_monitor_active"), std::string("tab_monitor_active"), false);
+    m_tabpanel->AddPage(m_calibration, _L("Calibration"), std::string("tab_calibration"), std::string("tab_calibration"), false); // ORCA: update icon
 
     if (m_plater) {
         // load initial config
@@ -1487,9 +1487,15 @@ wxBoxSizer* MainFrame::create_side_tools()
 
     // m_publish_btn = new Button(this, _L("Upload"), "bar_publish", 0, FromDIP(16));
     m_slice_btn = new SideButton(this, _L("Slice plate"), "");
+    m_slice_btn->SetCornerRadius(FromDIP(4)); // ORCA: use less radius to match button style
     m_slice_option_btn = new SideButton(this, "", "sidebutton_dropdown", 0, FromDIP(14));
+    m_slice_option_btn->SetCornerRadius(FromDIP(4)); // ORCA: use less radius to match button style
     m_print_btn = new SideButton(this, _L("Print plate"), "");
+    m_print_btn->SetCornerRadius(FromDIP(4)); // ORCA: use less radius to match button style
     m_print_option_btn = new SideButton(this, "", "sidebutton_dropdown", 0, FromDIP(14));
+    m_print_option_btn->SetCornerRadius(FromDIP(4)); // ORCA: use less radius to match button style
+
+	
 
     update_side_button_style();
     // m_publish_btn->Hide();
@@ -1890,23 +1896,23 @@ void MainFrame::update_side_button_style()
     // m_publish_btn->SetTextColor(StateColor::darkModeColorFor("#FFFFFE"));
 
     m_slice_btn->SetTextLayout(SideButton::EHorizontalOrientation::HO_Left, FromDIP(15));
-    m_slice_btn->SetCornerRadius(FromDIP(12));
+    m_slice_btn->SetCornerRadius(FromDIP(4)); // ORCA: Match button style
     m_slice_btn->SetExtraSize(wxSize(FromDIP(38), FromDIP(10)));
     m_slice_btn->SetMinSize(wxSize(-1, FromDIP(24)));
 
     m_slice_option_btn->SetTextLayout(SideButton::EHorizontalOrientation::HO_Center);
-    m_slice_option_btn->SetCornerRadius(FromDIP(12));
+    m_slice_option_btn->SetCornerRadius(FromDIP(4)); // ORCA: Match button style
     m_slice_option_btn->SetExtraSize(wxSize(FromDIP(10), FromDIP(10)));
     m_slice_option_btn->SetIconOffset(FromDIP(2));
     m_slice_option_btn->SetMinSize(wxSize(FromDIP(24), FromDIP(24)));
 
     m_print_btn->SetTextLayout(SideButton::EHorizontalOrientation::HO_Left, FromDIP(15));
-    m_print_btn->SetCornerRadius(FromDIP(12));
+    m_print_btn->SetCornerRadius(FromDIP(4)); // ORCA: Match button style
     m_print_btn->SetExtraSize(wxSize(FromDIP(38), FromDIP(10)));
     m_print_btn->SetMinSize(wxSize(-1, FromDIP(24)));
 
     m_print_option_btn->SetTextLayout(SideButton::EHorizontalOrientation::HO_Center);
-    m_print_option_btn->SetCornerRadius(FromDIP(12));
+    m_print_option_btn->SetCornerRadius(FromDIP(4)); // ORCA: Match button style
     m_print_option_btn->SetExtraSize(wxSize(FromDIP(10), FromDIP(10)));
     m_print_option_btn->SetIconOffset(FromDIP(2));
     m_print_option_btn->SetMinSize(wxSize(FromDIP(24), FromDIP(24)));

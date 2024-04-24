@@ -336,7 +336,13 @@ public:
     static const ImVec4 COL_WINDOW_BG_DARK;
     static const ImVec4 COL_SEPARATOR;
     static const ImVec4 COL_SEPARATOR_DARK;
+
+    //ORCA
     static const ImVec4 COL_ORCA;
+    static const ImVec4 COL_ORCA_LIGHT;
+    static const ImVec4 COL_ORCA_DARK;
+    static const ImVec4 COL_ORCA_ORANGE;
+    static const ImVec4 COL_SELECTED_TEXT_BG;
 
     //BBS
     static void on_change_color_mode(bool is_dark);
@@ -346,6 +352,8 @@ public:
     static void pop_menu_style();
     static void push_common_window_style(const float scale);
     static void pop_common_window_style();
+    static void push_default_button_style();
+    static void pop_default_button_style();
     static void push_confirm_button_style();
     static void pop_confirm_button_style();
     static void push_cancel_button_style();
@@ -356,6 +364,8 @@ public:
     static void pop_combo_style();
     static void push_radio_style();
     static void pop_radio_style();
+    static void push_check_style(bool value);
+    static void pop_check_style(bool value);
 
     //BBS
     static int TOOLBAR_WINDOW_FLAGS;

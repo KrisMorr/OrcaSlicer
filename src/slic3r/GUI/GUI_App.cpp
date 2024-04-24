@@ -271,8 +271,13 @@ public:
 
         // init constant texts and scale fonts
         m_constant_text.init(Label::Body_16);
-        scale_font(m_constant_text.title_font, 2.0f);
-        scale_font(m_constant_text.version_font, 1.2f);
+
+		float f_scale = m_scale * 2;
+
+        //scale_font(m_constant_text.title_font,			f_scale);
+        scale_font(m_constant_text.version_font,		f_scale);
+        scale_font(m_constant_text.based_on_text_font,	f_scale);
+        scale_font(m_constant_text.credits_font,		f_scale);
 
         // this font will be used for the action string
         m_action_font = m_constant_text.credits_font;
@@ -291,7 +296,8 @@ public:
             wxMemoryDC memDC;
             memDC.SelectObject(bitmap);
             memDC.SetFont(m_action_font);
-            memDC.SetTextForeground(StateColor::darkModeColorFor(wxColour(144, 144, 144)));
+            //memDC.SetTextForeground(StateColor::darkModeColorFor(wxColour(144, 144, 144)));
+            memDC.SetTextForeground(wxColor("#949494"));
             int width = bitmap.GetWidth();
             int text_height = memDC.GetTextExtent(text).GetHeight();
             int text_width = memDC.GetTextExtent(text).GetWidth();
@@ -312,51 +318,49 @@ public:
         if (!bmp.IsOk())
             return;
 
+		bool is_dark = wxGetApp().app_config->get("dark_color_mode") == "1";
+
         // use a memory DC to draw directly onto the bitmap
-        wxMemoryDC memDc(bmp);
-
-        int top_margin = FromDIP(75 * m_scale);
-        int width = bmp.GetWidth();
-
-        // draw title and version
-        int text_padding = FromDIP(3 * m_scale);
-        memDc.SetFont(m_constant_text.title_font);
-        int title_height = memDc.GetTextExtent(m_constant_text.title).GetHeight();
-        int title_width = memDc.GetTextExtent(m_constant_text.title).GetWidth();
-        memDc.SetFont(m_constant_text.version_font);
-        int version_height = memDc.GetTextExtent(m_constant_text.version).GetHeight();
-        int version_width = memDc.GetTextExtent(m_constant_text.version).GetWidth();
-        int split_width = (width + title_width - version_width) / 2;
-        wxRect title_rect(wxPoint(0, top_margin), wxPoint(split_width - text_padding, top_margin + title_height));
-        memDc.SetTextForeground(StateColor::darkModeColorFor(wxColour(38, 46, 48)));
-        memDc.SetFont(m_constant_text.title_font);
-        memDc.DrawLabel(m_constant_text.title, title_rect, wxALIGN_RIGHT | wxALIGN_BOTTOM);
-        //BBS align bottom of title and version text
-        wxRect version_rect(wxPoint(split_width + text_padding, top_margin), wxPoint(width, top_margin + title_height - text_padding));
-        memDc.SetFont(m_constant_text.version_font);
-        memDc.SetTextForeground(StateColor::darkModeColorFor(wxColor(134, 134, 134)));
-        memDc.DrawLabel(m_constant_text.version, version_rect, wxALIGN_LEFT | wxALIGN_BOTTOM);
-
-        auto bs_version = wxString::Format("Based on BambuStudio and PrusaSlicer").ToStdString();
-        memDc.SetFont(Label::Body_12);
-        wxSize text_rect = memDc.GetTextExtent(bs_version);
-        int start_x = (title_rect.GetLeft() + version_rect.GetRight()) / 2 - text_rect.GetWidth()/2;
-        int start_y = version_rect.GetBottom() + 10;
-        wxRect internal_sign_rect(wxPoint(start_x, start_y), wxSize(text_rect));
-        memDc.DrawLabel(bs_version, internal_sign_rect, wxALIGN_RIGHT);
+        wxMemoryDC memDC(bmp);
 
         // load bitmap for logo
         BitmapCache bmp_cache;
-        int logo_margin = FromDIP(72 * m_scale);
-        int logo_size = FromDIP(122 * m_scale);
-        int logo_width = FromDIP(94 * m_scale);
-        wxBitmap logo_bmp = *bmp_cache.load_svg("splash_logo", logo_size, logo_size);
-        int logo_y = top_margin + title_rect.GetHeight() + logo_margin;
-        memDc.DrawBitmap(logo_bmp, (width - logo_width) / 2, logo_y, true);
+        int         logo_height = FromDIP(480 * m_scale);
+        int         logo_width  = FromDIP(480 * m_scale);
+        wxBitmap    logo_bmp      = *bmp_cache.load_svg(is_dark ? "splash_logo_dark" : "splash_logo", logo_width, logo_height);
+        memDC.DrawBitmap(logo_bmp, 0, 0, true);
 
-        // calculate position for the dynamic text
-        int text_margin = FromDIP(80 * m_scale);
-        m_action_line_y_position = logo_y + logo_size + text_margin;
+        memDC.SetTextForeground(wxColor("#949494"));
+
+        // Version Number
+        memDC.SetFont(m_constant_text.version_font);
+        int version_height = memDC.GetTextExtent(m_constant_text.version).GetHeight();
+        int version_width  = memDC.GetTextExtent(m_constant_text.version).GetWidth();
+        memDC.DrawLabel(
+            m_constant_text.version,
+            wxRect(
+                wxPoint(0, round(logo_height * 0.61)), // TOPLEFT
+                wxPoint(logo_width, round(logo_height * 0.61) + version_width)
+            ),
+            wxALIGN_CENTER
+        );
+
+        // Based on Text
+        memDC.SetFont(m_constant_text.based_on_text_font);
+        int based_on_height = memDC.GetTextExtent(m_constant_text.based_on_text).GetHeight();
+        int based_on_width  = memDC.GetTextExtent(m_constant_text.based_on_text).GetWidth();
+        memDC.DrawLabel(
+            m_constant_text.based_on_text,
+            wxRect(
+                wxPoint(0, logo_height - based_on_height - logo_height / 30),
+                wxPoint(logo_width, logo_height - logo_height / 30)
+            ),
+            wxALIGN_CENTER
+        );
+
+		// calculate position for the dynamic text
+		m_action_line_y_position = round(logo_height * 0.82);
+
     }
 
     static wxBitmap MakeBitmap()
@@ -429,28 +433,33 @@ private:
 
     struct ConstantText
     {
-        wxString title;
+        //wxString title;
         wxString version;
         wxString credits;
+        wxString based_on_text;
 
-        wxFont   title_font;
+        //wxFont   title_font;
         wxFont   version_font;
+        wxFont   based_on_text_font;
         wxFont   credits_font;
 
         void init(wxFont init_font)
         {
             // title
-            title = wxGetApp().is_editor() ? SLIC3R_APP_FULL_NAME : GCODEVIEWER_APP_NAME;
+            //title = wxGetApp().is_editor() ? SLIC3R_APP_FULL_NAME : GCODEVIEWER_APP_NAME;
 
             // dynamically get the version to display
-            version = _L("V") + " " + GUI_App::format_display_version();
+            version         = GUI_App::format_display_version();//version = _L("V") + " " + GUI_App::format_display_version();
+
+            based_on_text   = _L("Based on ") + "Prusa Slicer & Bamboo Studio";
 
             // credits infornation
             credits = "";
 
-            title_font = Label::Head_16;
-            version_font = Label::Body_16;
-            credits_font = init_font;
+            //title_font          = Label::Head_10;
+            version_font        = Label::Body_13;
+            based_on_text_font  = Label::Body_8;
+            credits_font        = Label::Body_8;
         }
     }
     m_constant_text;
@@ -2810,7 +2819,8 @@ void GUI_App::init_label_colours()
 #if defined(_WIN32) || defined(__linux__) || defined(__APPLE__)
     m_color_label_default           = is_dark_mode ? wxColour(250, 250, 250) : m_color_label_sys; // wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOWTEXT);
     m_color_highlight_label_default = is_dark_mode ? wxColour(230, 230, 230): wxSystemSettings::GetColour(/*wxSYS_COLOUR_HIGHLIGHTTEXT*/wxSYS_COLOUR_WINDOWTEXT);
-    m_color_highlight_default       = is_dark_mode ? wxColour(78, 78, 78)   : wxSystemSettings::GetColour(wxSYS_COLOUR_3DLIGHT);
+    //m_color_highlight_default       = is_dark_mode ? wxColour(78, 78, 78)   : wxSystemSettings::GetColour(wxSYS_COLOUR_3DLIGHT);
+    m_color_highlight_default       = is_dark_mode ? wxColour("#333337") : wxColour("#F2F2F2");
     m_color_hovered_btn_label       = is_dark_mode ? wxColour(255, 255, 254) : wxColour(0,0,0);
     m_color_default_btn_label       = is_dark_mode ? wxColour(255, 255, 254): wxColour(0,0,0);
     m_color_selected_btn_bg         = is_dark_mode ? wxColour(84, 84, 91)   : wxColour(206, 206, 206);

@@ -970,25 +970,22 @@ void UnsavedChangesDialog::build(Preset::Type type, PresetCollection *dependent_
     m_sizer_button->Add(0, 0, 1, 0, 0);
 
      // Add Buttons
-    wxFont      btn_font = this->GetFont().Scaled(1.4f);
-    StateColor btn_bg_green(std::pair<wxColour, int>(wxColour(0, 137, 123), StateColor::Pressed), std::pair<wxColour, int>(wxColour(38, 166, 154), StateColor::Hovered),
-                            std::pair<wxColour, int>(wxColour(0, 150, 136), StateColor::Normal));
+    //wxFont      btn_font = this->GetFont().Scaled(1.4f);
 
-    auto add_btn = [this, m_sizer_button, btn_font, dependent_presets, btn_bg_green](Button **btn, int &btn_id, const std::string &icon_name, Action close_act, const wxString &label,
+    auto add_btn = [this, m_sizer_button, dependent_presets](Button **btn, int &btn_id, const std::string &icon_name, Action close_act, const wxString &label,
                                                                               bool focus, bool process_enable = true) {
         *btn = new Button(this, _L(label));
 
         if (focus) {
-            (*btn)->SetBackgroundColor(btn_bg_green);
-            (*btn)->SetBorderColor(wxColour(0, 150, 136));
-            (*btn)->SetTextColor(wxColour("#FFFFFE"));
+            (*btn)->SetStyleConfirm(Label::Body_14); // ORCA match button style
         } else {
-            (*btn)->SetTextColor(wxColour(107, 107, 107));
+            (*btn)->SetStyleDefault(Label::Body_14); // ORCA match button style
         }
 
         //(*btn)->SetMinSize(UNSAVE_CHANGE_DIALOG_BUTTON_SIZE);
-        (*btn)->SetMinSize(wxSize(-1,-1));
-        (*btn)->SetCornerRadius(FromDIP(12));
+        //(*btn)->SetMinSize(wxSize(-1,-1));
+        (*btn)->SetSize(wxSize(-1, FromDIP(26)));    // ORCA Match Height
+        (*btn)->SetMinSize(wxSize(-1, FromDIP(26))); // ORCA Match Height
 
         (*btn)->Bind(wxEVT_BUTTON, [this, close_act, dependent_presets](wxEvent &) {
             bool save_names_and_types = close_act == Action::Save || (close_act == Action::Transfer && ActionButtons::KEEP & m_buttons);
@@ -1938,11 +1935,7 @@ std::array<Preset::Type, 3> DiffPresetDialog::types_list() const
 
 void DiffPresetDialog::create_buttons()
 {
-    wxFont font = this->GetFont().Scaled(1.4f);
-    StateColor btn_bg_green(std::pair<wxColour, int>(wxColour(206, 206, 206), StateColor::Disabled),
-                            std::pair<wxColour, int>(wxColour(0, 137, 123), StateColor::Pressed),
-                            std::pair<wxColour, int>(wxColour(38, 166, 154), StateColor::Hovered),
-                            std::pair<wxColour, int>(wxColour(0, 150, 136), StateColor::Normal));
+    //wxFont font = this->GetFont().Scaled(1.4f);
     m_buttons   = new wxBoxSizer(wxHORIZONTAL);
 
     auto show_in_bottom_info = [this](const wxString& ext_line, wxEvent* e = nullptr) {
@@ -1954,11 +1947,9 @@ void DiffPresetDialog::create_buttons()
 
     // Transfer 
     m_transfer_btn = new Button(this, L("Transfer"));
-    m_transfer_btn->SetBackgroundColor(btn_bg_green);
-    m_transfer_btn->SetBorderColor(wxColour(0, 150, 136));
-    m_transfer_btn->SetTextColor(wxColour("#FFFFFE"));
-    m_transfer_btn->SetMinSize(wxSize(-1, -1));
-    m_transfer_btn->SetCornerRadius(FromDIP(12));
+    m_transfer_btn->SetStyleDefault(Label::Body_14); // ORCA Match Style
+    m_transfer_btn->SetSize(wxSize(-1, FromDIP(26)));    // ORCA Match Height
+    m_transfer_btn->SetMinSize(wxSize(-1, FromDIP(26))); // ORCA Match Height
 
     m_transfer_btn->Bind(wxEVT_BUTTON, [this](wxEvent&) { button_event(Action::Transfer);});
 
@@ -1994,16 +1985,16 @@ void DiffPresetDialog::create_buttons()
 
     // Cancel
     m_cancel_btn = new Button(this, L("Cancel"));
-    m_cancel_btn->SetTextColor(wxColour(107, 107, 107));
-    m_cancel_btn->SetMinSize(wxSize(-1, -1));
-    m_cancel_btn->SetCornerRadius(FromDIP(12));
+    m_cancel_btn->SetStyleDefault(Label::Body_14);     // ORCA Match Style
+    m_cancel_btn->SetSize(wxSize(-1, FromDIP(26))); // ORCA Match Height
+    m_cancel_btn->SetMinSize(wxSize(-1, FromDIP(26))); // ORCA Match Height
 
     m_cancel_btn->Bind(wxEVT_BUTTON, [this](wxEvent&) { button_event(Action::Discard);});
 
     for (Button* btn : { m_transfer_btn, m_cancel_btn }) {
         btn->Bind(wxEVT_LEAVE_WINDOW, [this](wxMouseEvent& e) { update_bottom_info(); Layout(); e.Skip(); });
         m_buttons->Add(btn, 1, wxLEFT, 5);
-        btn->SetFont(font);
+        //btn->SetFont(font);
     }
 
     m_buttons->Show(false);
@@ -2250,7 +2241,7 @@ void DiffPresetDialog::update_tree()
             Search::Option option = searcher.get_option(opt_key, get_full_label(opt_key, left_config), type);
             if (option.opt_key() != opt_key) {
                 // temporary solution, just for testing
-                m_tree->Append(opt_key, type, "Undef category", "Undef group", opt_key, left_val, right_val, "question");
+                m_tree->Append(opt_key, type, "Undef category", "Undef group", opt_key, left_val, right_val, "undefined");
                 // When founded option isn't the correct one.
                 // It can be for dirty_options: "default_print_profile", "printer_model", "printer_settings_id",
                 // because of they don't exist in searcher
@@ -2309,7 +2300,7 @@ void DiffPresetDialog::on_sys_color_changed()
 #ifdef _WIN32
     wxGetApp().UpdateAllStaticTextDarkUI(this);
     wxGetApp().UpdateDarkUI(m_show_all_presets);
-    wxGetApp().UpdateDVCDarkUI(m_tree);
+    wxGetApp().UpdateDVCDarkUI(m_tree, true);
 #endif
 
     for (auto preset_combos : m_preset_combos) {

@@ -661,7 +661,7 @@ std::vector<std::string> PlaterPresetComboBox::get_custom_color_from_config() {
 // ---------------------------------
 
 PlaterPresetComboBox::PlaterPresetComboBox(wxWindow *parent, Preset::Type preset_type) :
-    PresetComboBox(parent, preset_type, wxSize(25 * wxGetApp().em_unit(), 30 * wxGetApp().em_unit() / 10))
+    PresetComboBox(parent, preset_type, wxSize(25 * wxGetApp().em_unit(), 26 * wxGetApp().em_unit() / 10)) // ORCA: Using 26 for height fixes height change for filament combo boxes while adding new ones
 {
     GetDropDown().SetUseContentWidth(true,true);
 

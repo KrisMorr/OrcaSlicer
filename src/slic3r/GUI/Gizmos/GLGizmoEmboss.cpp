@@ -1758,7 +1758,7 @@ void GLGizmoEmboss::draw_font_list()
             if (ImGui::BBLSelectable(face.name_truncated.c_str(), is_selected, flags, selectable_size)) {
                 if (!select_facename(wx_face_name)) {
                     del_index = idx;
-                    MessageDialog(wxGetApp().plater(), GUI::format_wxstr(_L("Font \"%1%\" can't be selected."), wx_face_name));
+                    MessageDialog(wxGetApp().plater(), GUI::format_wxstr(_u8L("Font \"%1%\" can't be selected."), wx_face_name));
                 } else {
                     ImGui::CloseCurrentPopup();
                 }
@@ -1915,7 +1915,7 @@ void GLGizmoEmboss::draw_model_type()
 void GLGizmoEmboss::draw_style_rename_popup() {
     std::string& new_name = m_style_manager.get_style().name;
     const std::string &old_name = m_style_manager.get_stored_style()->name;
-    std::string text_in_popup = GUI::format(_L("Rename style(%1%) for embossing text"), old_name) + ": ";
+    std::string text_in_popup = GUI::format(_u8L("Rename style(%1%) for embossing text"), old_name) + ": ";
     ImGui::Text("%s", text_in_popup.c_str());
         
     bool is_unique = (new_name == old_name) || // could be same as before rename
@@ -1934,7 +1934,7 @@ void GLGizmoEmboss::draw_style_rename_popup() {
     bool store = false;
     ImGuiInputTextFlags flags = ImGuiInputTextFlags_EnterReturnsTrue;
     if (ImGui::InputText("##rename style", &new_name, flags) && allow_change) store = true;
-    if (m_imgui->button(_L("OK"), ImVec2(0.f, 0.f), allow_change)) store = true;
+    if (m_imgui->button(_u8L("OK"), ImVec2(0.f, 0.f), allow_change)) store = true;
     ImGui::SameLine();
     if (ImGui::Button(_u8L("Cancel").c_str())) {
         new_name = old_name;
@@ -1988,7 +1988,7 @@ void GLGizmoEmboss::draw_style_save_button(bool is_modified)
         if (!m_style_manager.exist_stored_style()) {
             tooltip = _u8L("First Add style to list.");
         } else if (is_modified) {
-            tooltip = GUI::format(_L("Save %1% style"), m_style_manager.get_style().name);
+            tooltip = GUI::format(_u8L("Save %1% style"), m_style_manager.get_style().name);
         } else {
             tooltip = _u8L("No changes to save.");
         }
@@ -2017,7 +2017,7 @@ void GLGizmoEmboss::draw_style_save_as_popup() {
     if (ImGui::InputText("##save as style", &new_name, flags))
         save_style = true;
         
-    if (m_imgui->button(_L("OK"), ImVec2(0.f, 0.f), allow_change))
+    if (m_imgui->button(_u8L("OK"), ImVec2(0.f, 0.f), allow_change))
         save_style = true;
 
     ImGui::SameLine();
@@ -2076,7 +2076,7 @@ void GLGizmoEmboss::draw_delete_style_button() {
 
     if (draw_button(m_icons, IconType::erase, !can_delete)) {
         std::string style_name = m_style_manager.get_style().name; // copy
-        wxString dialog_title = _L("Remove style");
+        wxString dialog_title = _u8L("Remove style");
         size_t next_style_index = std::numeric_limits<size_t>::max();
         Plater *plater = wxGetApp().plater();
         bool exist_change = false;
@@ -2087,7 +2087,7 @@ void GLGizmoEmboss::draw_delete_style_button() {
                                                    active_index + 1;
             
             if (next_style_index >= m_style_manager.get_styles().size()) {
-                MessageDialog msg(plater, _L("Can't remove the last existing style."), dialog_title, wxICON_ERROR | wxOK);
+                MessageDialog msg(plater, _u8L("Can't remove the last existing style."), dialog_title, wxICON_ERROR | wxOK);
                 msg.ShowModal();
                 break;
             }
@@ -2100,7 +2100,7 @@ void GLGizmoEmboss::draw_delete_style_button() {
                 continue;
             }
 
-            wxString message = GUI::format_wxstr(_L("Are you sure you want to permanently remove the \"%1%\" style?"), style_name);
+            wxString message = GUI::format_wxstr(_u8L("Are you sure you want to permanently remove the \"%1%\" style?"), style_name);
             MessageDialog msg(plater, message, dialog_title, wxICON_WARNING | wxYES | wxNO);
             if (msg.ShowModal() == wxID_YES) {
                 // delete style
@@ -2120,9 +2120,9 @@ void GLGizmoEmboss::draw_delete_style_button() {
     if (ImGui::IsItemHovered()) {
         const std::string &style_name = m_style_manager.get_style().name;
         std::string tooltip;
-        if (can_delete)        tooltip = GUI::format(_L("Delete \"%1%\" style."), style_name);
-        else if (is_last)      tooltip = GUI::format(_L("Can't delete \"%1%\". It is last style."), style_name);
-        else/*if(!is_stored)*/ tooltip = GUI::format(_L("Can't delete temporary style \"%1%\"."), style_name);      
+        if (can_delete)        tooltip = GUI::format(_u8L("Delete \"%1%\" style."), style_name);
+        else if (is_last)      tooltip = GUI::format(_u8L("Can't delete \"%1%\". It is last style."), style_name);
+        else/*if(!is_stored)*/ tooltip = GUI::format(_u8L("Can't delete temporary style \"%1%\"."), style_name);      
         m_imgui->tooltip(tooltip, m_gui_cfg->max_tooltip_width);  
     }
 }
@@ -2240,8 +2240,8 @@ void GLGizmoEmboss::draw_style_list() {
         if (ImGui::IsItemHovered()) {            
             std::string style_name = add_text_modify(current_style.name);
             tooltip = is_modified?
-                GUI::format(_L("Modified style \"%1%\""), current_style.name):
-                GUI::format(_L("Current style is \"%1%\""), current_style.name);
+                GUI::format(_u8L("Modified style \"%1%\""), current_style.name):
+                GUI::format(_u8L("Current style is \"%1%\""), current_style.name);
         }
     }
     ImGuiWrapper::pop_combo_style();
@@ -2251,8 +2251,8 @@ void GLGizmoEmboss::draw_style_list() {
     // Check whether user wants lose actual style modification
     if (selected_style_index.has_value() && is_modified) { 
         const std::string & style_name = m_style_manager.get_styles()[*selected_style_index].name;        
-        wxString message = GUI::format_wxstr(_L("Changing style to \"%1%\" will discard current style modification.\n\nWould you like to continue anyway?"), style_name);
-        MessageDialog not_loaded_style_message(nullptr, message, _L("Warning"), wxICON_WARNING | wxYES | wxNO);
+        wxString message = GUI::format_wxstr(_u8L("Changing style to \"%1%\" will discard current style modification.\n\nWould you like to continue anyway?"), style_name);
+        MessageDialog not_loaded_style_message(nullptr, message, _u8L("Warning"), wxICON_WARNING | wxYES | wxNO);
         if (not_loaded_style_message.ShowModal() != wxID_YES) 
             selected_style_index.reset();
     }
@@ -2267,8 +2267,8 @@ void GLGizmoEmboss::draw_style_list() {
             ::fix_transformation(cur_s, new_s, m_parent);
             process();
         } else {
-            wxString title   = _L("Not valid style.");
-            wxString message = GUI::format_wxstr(_L("Style \"%1%\" can't be used and will be removed from a list."), style.name);
+            wxString title   = _u8L("Not valid style.");
+            wxString message = GUI::format_wxstr(_u8L("Style \"%1%\" can't be used and will be removed from a list."), style.name);
             MessageDialog not_loaded_style_message(nullptr, message, title, wxOK);
             not_loaded_style_message.ShowModal();
             m_style_manager.erase(*selected_style_index);
@@ -2758,7 +2758,7 @@ void GLGizmoEmboss::draw_advanced()
     int max_char_gap = half_ascent;
     FontProp &current_prop = current_style.prop;
     if (rev_slider(tr.char_gap, current_prop.char_gap, def_char_gap, _u8L("Revert gap between characters"), 
-        min_char_gap, max_char_gap, units_fmt, _L("Distance between characters"))){
+        min_char_gap, max_char_gap, units_fmt, _u8L("Distance between characters"))){
         // Condition prevent recalculation when insertint out of limits value by imgui input
         const std::optional<int> &volume_char_gap = m_volume->text_configuration->style.prop.char_gap;
         if (!apply(current_prop.char_gap, limits.char_gap) ||
@@ -2780,7 +2780,7 @@ void GLGizmoEmboss::draw_advanced()
     int min_line_gap = -half_ascent;
     int max_line_gap = half_ascent;
     if (rev_slider(tr.line_gap, current_prop.line_gap, def_line_gap, _u8L("Revert gap between lines"), 
-        min_line_gap, max_line_gap, units_fmt, _L("Distance between lines"))){
+        min_line_gap, max_line_gap, units_fmt, _u8L("Distance between lines"))){
         // Condition prevent recalculation when insertint out of limits value by imgui input
         const std::optional<int> &volume_line_gap = m_volume->text_configuration->style.prop.line_gap;
         if (!apply(current_prop.line_gap, limits.line_gap) ||
@@ -2802,7 +2802,7 @@ void GLGizmoEmboss::draw_advanced()
     int min_boldness = static_cast<int>(font_info.ascent * limits.boldness.gui.min);
     int max_boldness = static_cast<int>(font_info.ascent * limits.boldness.gui.max);
     if (rev_slider(tr.boldness, current_prop.boldness, def_boldness, _u8L("Undo boldness"), 
-        min_boldness, max_boldness, units_fmt, _L("Tiny / Wide glyphs"))){
+        min_boldness, max_boldness, units_fmt, _u8L("Tiny / Wide glyphs"))){
         const std::optional<float> &volume_boldness = m_volume->text_configuration->style.prop.boldness;
         if (!apply(current_prop.boldness, limits.boldness.values) ||
             !volume_boldness.has_value() || volume_boldness != current_prop.boldness)
@@ -2815,7 +2815,7 @@ void GLGizmoEmboss::draw_advanced()
     auto def_skew = stored_style ?
         &stored_style->prop.skew : nullptr;
     if (rev_slider(tr.skew_ration, current_prop.skew, def_skew, _u8L("Undo letter's skew"),
-        limits.skew.gui.min, limits.skew.gui.max, "%.2f", _L("Italic strength ratio"))){
+        limits.skew.gui.min, limits.skew.gui.max, "%.2f", _u8L("Italic strength ratio"))){
         const std::optional<float> &volume_skew = m_volume->text_configuration->style.prop.skew;
         if (!apply(current_prop.skew, limits.skew.values) ||
             !volume_skew.has_value() ||volume_skew != current_prop.skew)
@@ -2835,7 +2835,7 @@ void GLGizmoEmboss::draw_advanced()
     m_imgui->disabled_begin(!allowe_surface_distance);    
     bool use_inch = wxGetApp().app_config->get_bool("use_inches");
     const std::string undo_move_tooltip = _u8L("Undo translation");
-    const wxString move_tooltip = _L("Distance of the center of the text to the model surface.");
+    const wxString move_tooltip = _u8L("Distance of the center of the text to the model surface.");
     bool is_moved = false;
     if (use_inch) {
         std::optional<float> distance_inch;
@@ -2890,7 +2890,7 @@ void GLGizmoEmboss::draw_advanced()
         &def_angle_deg_val : nullptr;
     if (rev_slider(tr.rotation, angle_deg, def_angle_deg, _u8L("Undo rotation"), 
         limits.angle.min, limits.angle.max, u8"%.2f °",
-                   _L("Rotate text Clock-wise."))) {
+                   _u8L("Rotate text Clock-wise."))) {
         // convert back to radians and CCW
         double angle_rad = -angle_deg * M_PI / 180.0;
         Geometry::to_range_pi_pi(angle_rad);                
@@ -3120,7 +3120,7 @@ void GLGizmoEmboss::create_notification_not_valid_font(
     }
     const std::string &face_name = face_name_opt.value_or(face_name_by_wx.value_or(es.path));
     std::string text =
-        GUI::format(_L("Can't load exactly same font(\"%1%\"). "
+        GUI::format(_u8L("Can't load exactly same font(\"%1%\"). "
                        "Aplication selected a similar one(\"%2%\"). "
                        "You have to specify font for enable edit text."),
                     face_name_3mf, face_name);
